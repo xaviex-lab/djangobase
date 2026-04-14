@@ -5,12 +5,15 @@
 {% block titulo %}Cadastro{% endblock %}
 
 {% block conteudo %}
-   <h2>{{ total }} Pessoas Cadastradas</h2>
-   <ul>
+<h2>{{ total }} Pessoas Cadastradas</h2>
+<ul>
     {% for pessoa in pessoas %}
-        <li>{{ pessoa.nome }}</li>
+    <li>
+    <a href="/pessoa/{{ pessoa.id }}/">{{ pessoa.nome }}</a>
+    - {{ pessoa.email }}
+    </li>
     {% empty %}
-        <li>Nenhuma pessoa cadastrada ainda.</li>
+    <li>Nenhuma pessoa cadastrada ainda.</li>
     {% endfor %}
-   </ul>
+</ul>
 {% endblock %}
