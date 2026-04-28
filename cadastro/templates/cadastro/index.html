@@ -1,19 +1,22 @@
 {# cadastro\templates\cadastro\index.html #}
 
+{# `index.html` herda a estrutura de `base.html` #}
 {% extends 'cadastro/base.html' %}
 
-{% block titulo %}Cadastro{% endblock %}
-
 {% block conteudo %}
-<h2>{{ total }} Pessoas Cadastradas</h2>
-<ul>
+
+    <h2>{{ total }} Pessoas Cadastradas</h2>
+    
+    <ul>
     {% for pessoa in pessoas %}
-    <li>
-    <a href="/pessoa/{{ pessoa.id }}/">{{ pessoa.nome }}</a>
-    - {{ pessoa.email }}
-    </li>
+        <li>
+            <a href="{% url 'detalhe' pessoa.id %}">{{ pessoa.nome }}</a>
+             - {{ pessoa.email }}
+        </li>
     {% empty %}
-    <li>Nenhuma pessoa cadastrada ainda.</li>
-    {% endfor %}
-</ul>
+        <li>Ninguém está cadastrado.</li>
+        
+    {% endfor%}
+    </ul>
+
 {% endblock %}

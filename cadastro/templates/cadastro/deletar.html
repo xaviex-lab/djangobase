@@ -1,3 +1,5 @@
+{# cadastro\templates\cadastro\deletar.html #}
+
 {% extends 'cadastro/base.html' %}
 
 {% block titulo %}Deletar {{ pessoa.nome }}{% endblock %}
@@ -9,6 +11,6 @@
     <form method="POST">
         {% csrf_token %}
         <button type="submit">Confirmar</button>
-        <a href="/pessoa/{{ pessoa.id }}/">Cancelar</a>
+        <a href="{% url 'detalhe' pessoa.id %}">Cancelar</a>
     </form>
 {% endblock %}
