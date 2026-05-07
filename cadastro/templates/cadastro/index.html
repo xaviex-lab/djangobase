@@ -4,35 +4,49 @@
 
 {% block conteudo %}
 
-<h2 class="mb-3">{{ total }} Sons disponíveis:</h2>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0 fs-5 fw-semibold text-muted">{{ total }} sons disponíveis</h2>
+</div>
 
-<form method="GET" class="mb-3">
+<form method="GET" class="mb-4">
     <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Pesquisar faixa ou artista..." value="{{ busca }}">
-        <button class="btn btn-dark" type="submit">Buscar</button>
+        <span class="input-group-text bg-transparent border-end-0">
+            <i class="bi bi-search text-muted"></i>
+        </span>
+        <input type="text" name="q" class="form-control border-start-0 ps-0" placeholder="Pesquisar faixa ou artista..." value="{{ busca }}">
+        <button class="btn btn-dark px-4" type="submit">Buscar</button>
     </div>
 </form>
 
 <div class="d-flex flex-column gap-2">
     {% for musica in musicas %}
-    <div class="card shadow rounded-3">
-        <div class="d-flex align-items-center px-3 py-2 gap-3">
-            {% if musica.capa_url %}
-            <img src="{{ musica.capa_url }}" alt="Capa de {{ musica.titulo }}" width="55" height="55"
-                style="object-fit: cover; border-radius: 6px; flex-shrink: 0;">
-            {% else %}
-            <div style="width:55px; height:55px; background:#ddd; border-radius:6px; flex-shrink:0;"></div>
-            {% endif %}
-            <div class="overflow-hidden">
-                <a href="{% url 'detalhe' musica.id %}" class="text-decoration-none">
-                    <h6 class="mb-0 text-truncate">{{ musica.titulo }}</h6>
-                </a>
-                <small class="text-muted text-truncate d-block">{{ musica.artista }}</small>
+    <a href="{% url 'detalhe' musica.id %}" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4" style="transition: transform 0.15s, box-shadow 0.15s;"
+            onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,0.1)'"
+            onmouseout="this.style.transform='';this.style.boxShadow=''">
+            <div class="d-flex align-items-center px-3 py-2 gap-3">
+                {% if musica.capa_url %}
+                <img src="{{ musica.capa_url }}" alt="Capa de {{ musica.titulo }}" width="52" height="52"
+                    style="object-fit: cover; border-radius: 8px; flex-shrink: 0;">
+                {% else %}
+                <div class="d-flex align-items-center justify-content-center bg-secondary bg-opacity-25"
+                    style="width:52px; height:52px; border-radius:8px; flex-shrink:0;">
+                    <i class="bi bi-music-note text-muted"></i>
+                </div>
+                {% endif %}
+                <div class="overflow-hidden flex-grow-1">
+                    <h6 class="mb-0 text-truncate fw-semibold">{{ musica.titulo }}</h6>
+                    <small class="text-muted text-truncate d-block">{{ musica.artista }}</small>
+                </div>
+                <i class="bi bi-chevron-right text-muted me-1"></i>
             </div>
         </div>
-    </div>
+    </a>
     {% empty %}
-    <p class="text-muted">{% if busca %}Nenhuma música encontrada para "{{ busca }}".{% else %}Nenhuma música cadastrada ainda.{% endif %}</p>
+    <div class="text-center py-5 text-muted">
+        <i class="bi bi-music-note-beamed fs-1 d-block mb-2"></i>
+        {% if busca %}Nenhuma música encontrada para "{{ busca }}".{% else %}Nenhuma música cadastrada ainda.{% endif %}
+    </div>
     {% endfor %}
 </div>
 
